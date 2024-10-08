@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "repl-nix-audiotranscribebot"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+email-validator = "^2.2.0"
+fastapi = "^0.95.0"
+uvicorn = "^0.22.0"
+flask-sqlalchemy = "^3.1.1"
+psycopg2-binary = "^2.9.9"
+boto3 = "^1.35.27"
+requests = "^2.32.3"
+nltk = "^3.9.1"
+langdetect = "^1.0.9"
+mangum = "^0.18.0"
+
+[tool.poetry.dev-dependencies]
+# Add any development dependencies here
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
