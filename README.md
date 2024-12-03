@@ -27,7 +27,9 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 - Telegram Bot Token
 - MarketRouter API Key
 
-## Installation
+## Frontend Setup
+
+### Installation
 
 1. Clone the repository:
    ```
@@ -45,7 +47,51 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
    poetry install
    ```
 
-## Configuration
+### Running the React Frontend
+
+1. Navigate to the `frontend` directory:
+   ```
+   cd frontend
+   ```
+
+2. Start the development server:
+   ```
+   npm start
+   ```
+
+3. Open your browser and go to `http://localhost:3000` to view the frontend.
+
+### AWS Deployment
+
+To deploy the React frontend to AWS, you can use AWS Amplify or S3 for static site hosting.
+
+#### Using AWS Amplify
+
+1. Install the Amplify CLI:
+   ```
+   npm install -g @aws-amplify/cli
+   ```
+
+2. Initialize a new Amplify project in the `frontend` directory:
+   ```
+   amplify init
+   ```
+
+3. Deploy the app:
+   ```
+   amplify publish
+   ```
+
+#### Using AWS S3
+
+1. Build the React app:
+   ```
+   npm run build
+   ```
+
+2. Upload the contents of the `build` directory to an S3 bucket configured for static site hosting.
+
+3. Configure the S3 bucket to serve the React app.
 
 1. Set up environment variables:
    - `TELEGRAM_BOT_TOKEN`: Your Telegram Bot Token
