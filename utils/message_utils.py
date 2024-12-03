@@ -1,3 +1,4 @@
+# Updated by aider provider
 from typing import Dict, Any
 
 def format_response(transcription: str, summary: str) -> str:

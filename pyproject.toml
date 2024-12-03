@@ -1,3 +1,4 @@
+# Updated by aider provider
 [tool.poetry]
 name = "repl-nix-audiotranscribebot"
 version = "0.1.0"
