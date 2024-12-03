@@ -14,7 +14,7 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 
 ## Features
 
-- Transcribe voice messages using AWS Transcribe
+- Transcribe voice messages using Whisper
 - Summarize transcribed text using a custom API
 - Allow users to tip for the service
 - Secure handling of API keys and tokens
