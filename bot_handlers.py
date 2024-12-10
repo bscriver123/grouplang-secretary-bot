@@ -22,7 +22,9 @@ def handle_message(message: Dict[str, Any]) -> None:
     chat_id = message['chat']['id']
     logger.info(f"Received message: {message}")
 
-    if 'voice' in message:
+    if 'text' in message and message['text'].strip().lower() == '/start':
+        send_message(chat_id, "Hello! I'm here to help you. You can send me a voice message to transcribe or ask for a summary of a text.")
+    elif 'voice' in message:
         handle_voice_message(message, chat_id)
 
 def handle_voice_message(message: Dict[str, Any], chat_id: int) -> None:
