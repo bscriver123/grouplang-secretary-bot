@@ -45,7 +45,20 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
    poetry install
    ```
 
-## Configuration
+## Dependencies
+
+The project uses the following dependencies, managed via Poetry:
+
+- **boto3**: AWS SDK for Python to interact with AWS services.
+- **fastapi**: A modern, fast (high-performance) web framework for building APIs with Python 3.6+.
+- **uvicorn**: A lightning-fast ASGI server implementation, using `uvloop` and `httptools`.
+- **python-telegram-bot**: A library that provides a pure Python interface for the Telegram Bot API.
+
+To manage these dependencies, ensure you have Poetry installed and use the following command to install them:
+
+```
+poetry install
+```
 
 1. Set up environment variables:
    - `TELEGRAM_BOT_TOKEN`: Your Telegram Bot Token
