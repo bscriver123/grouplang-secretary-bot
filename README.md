@@ -76,6 +76,21 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 
 6. Users can tip using the inline button provided with the response
 
+## Dependencies
+
+The project uses the following dependencies:
+
+- **email-validator**: Used for validating email addresses.
+- **fastapi**: A modern, fast (high-performance) web framework for building APIs with Python 3.6+.
+- **uvicorn**: A lightning-fast ASGI server implementation, using `uvloop` and `httptools`.
+- **flask-sqlalchemy**: An extension for Flask that adds support for SQLAlchemy, a SQL toolkit and Object-Relational Mapping (ORM) system.
+- **psycopg2-binary**: A PostgreSQL database adapter for Python.
+- **boto3**: The Amazon Web Services (AWS) SDK for Python, which allows Python developers to write software that makes use of Amazon services.
+- **requests**: A simple, yet elegant HTTP library for Python.
+- **nltk**: The Natural Language Toolkit, a suite of libraries and programs for symbolic and statistical natural language processing (NLP) for English.
+- **langdetect**: A language detection library ported from Google's language-detection library.
+- **mangum**: An adapter for using ASGI applications with AWS Lambda & API Gateway.
+
 ## Adding or Updating Dependencies
 
 To add a new package:
