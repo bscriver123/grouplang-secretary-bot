@@ -23,7 +23,7 @@ def handle_message(message: Dict[str, Any]) -> None:
     logger.info(f"Received message: {message}")
 
     send_message(chat_id, "Hello! I'm here to help you. Feel free to send me a voice message, and I'll transcribe and summarize it for you!")
-        handle_voice_message(message, chat_id)
+    handle_voice_message(message, chat_id)
 
 def handle_voice_message(message: Dict[str, Any], chat_id: int) -> None:
     try:
