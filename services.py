@@ -1,10 +1,11 @@
-import boto3
-from typing import Optional, Tuple, Dict
-import requests
+import logging
 import time
 import uuid
-import logging
 from io import BytesIO
+from typing import Dict, Optional, Tuple
+
+import boto3
+import requests
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

@@ -1,9 +1,10 @@
-from fastapi import FastAPI, Request, HTTPException
+import logging
+
+from bot_handlers import handle_message, handle_update
+from config import Config
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, PlainTextResponse
 from mangum import Mangum
-from config import Config
-from bot_handlers import handle_message, handle_update
-import logging
 
 
 # Import your custom modules if they are compatible with AWS Lambda

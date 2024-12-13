@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 def format_response(transcription: str, summary: str) -> str:
     return f"""*Summary:*
