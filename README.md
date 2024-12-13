@@ -113,15 +113,37 @@ To effectively incorporate asynchronous execution into your workflow, follow the
 
 By following these steps, you can enhance the performance and responsiveness of your bot when managing multiple tasks simultaneously.
 
-### Example Workflow Integration
+### Integration with Async Workflows
 
-To integrate these asynchronous features into your existing workflow, consider the following example:
+To efficiently incorporate asynchronous execution into your workflow, follow these steps:
 
-- **Step 1**: Import necessary modules and define your async functions.
-- **Step 2**: Use `asyncio.gather` to manage and execute these functions concurrently.
-- **Step 3**: Run your main function using `asyncio.run()` to ensure all tasks are executed within the event loop.
+1. **Import the asyncio Module**: Ensure you have the `asyncio` module imported in your script.
 
-This approach will help you efficiently manage multiple tasks, improving the overall performance of your bot.
+2. **Define Async Functions**: Define the functions you want to run concurrently as async functions.
+
+3. **Utilize asyncio.gather**: Use `asyncio.gather` to run multiple async functions concurrently. Here’s an example:
+
+   ```python
+   import asyncio
+   from services import AudioTranscriber
+   from utils.telegram_utils import send_message
+
+   async def main():
+       transcriber = AudioTranscriber(aws_services)
+       tasks = [
+           transcriber.transcribe_audio(file_url1),
+           transcriber.transcribe_audio(file_url2),
+           send_message(chat_id, "Processing your request...")
+       ]
+       results = await asyncio.gather(*tasks)
+       print(results)
+
+   asyncio.run(main())
+   ```
+
+4. **Execute with Event Loop**: Use `asyncio.run()` to execute the main async function that gathers all tasks.
+
+By following these steps, you can enhance the performance and responsiveness of your bot when managing multiple tasks simultaneously.
 
 ### Example Workflow Integration
 
