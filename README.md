@@ -113,6 +113,16 @@ To effectively incorporate asynchronous execution into your workflow, follow the
 
 By following these steps, you can enhance the performance and responsiveness of your bot when managing multiple tasks simultaneously.
 
+### Example Workflow Integration
+
+To integrate these asynchronous features into your existing workflow, consider the following example:
+
+- **Step 1**: Import necessary modules and define your async functions.
+- **Step 2**: Use `asyncio.gather` to manage and execute these functions concurrently.
+- **Step 3**: Run your main function using `asyncio.run()` to ensure all tasks are executed within the event loop.
+
+This approach will help you efficiently manage multiple tasks, improving the overall performance of your bot.
+
 ### Update Summary
 
 We have made enhancements to the audio transcription workflow to improve its efficiency and performance. Here are the key changes:
