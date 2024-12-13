@@ -10,6 +10,7 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Deployment](#deployment)
+- [Asynchronous Execution](#asynchronous-execution)
 - [API Reference](#api-reference)
 
 ## Features
@@ -75,6 +76,12 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 5. The bot will transcribe the audio, summarize the content, and send the result back
 
 6. Users can tip using the inline button provided with the response
+
+## Asynchronous Execution
+
+The bot now supports asynchronous execution for improved performance. Key methods such as `transcribe_audio` in `services.py` and `send_message` in `utils/telegram_utils.py` have been updated to run asynchronously. This allows for concurrent processing of tasks, reducing overall waiting time and enhancing responsiveness.
+
+To integrate these changes into your workflow, you can use `asyncio.gather` to manage multiple asynchronous tasks effectively. This setup is particularly beneficial when handling multiple audio transcriptions or sending multiple messages simultaneously.
 
 ## Adding or Updating Dependencies
 
