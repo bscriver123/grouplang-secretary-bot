@@ -1,4 +1,5 @@
-import requests
+import aiohttp
+import asyncio
 import os
 import json
 import logging
@@ -7,7 +8,7 @@ logger = logging.getLogger(__name__)
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 BASE_URL = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}'
 
-def send_message(chat_id, text, reply_markup=None, reply_to_message_id=None):
+async def send_message(chat_id, text, reply_markup=None, reply_to_message_id=None):
     try:
         url = f'{BASE_URL}/sendMessage'
         payload = {
@@ -19,7 +20,10 @@ def send_message(chat_id, text, reply_markup=None, reply_to_message_id=None):
             payload['reply_to_message_id'] = reply_to_message_id
         if reply_markup:
             payload['reply_markup'] = json.dumps(reply_markup)
-        requests.post(url, json=payload)
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as response:
+                response.raise_for_status()
     except Exception as e:
         logger.error(f"Error sending message: {e}")
         raise e

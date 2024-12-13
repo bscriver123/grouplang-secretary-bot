@@ -1,6 +1,7 @@
 import boto3
 from typing import Optional, Tuple, Dict
-import requests
+import aiohttp
+import asyncio
 import time
 import uuid
 import logging
@@ -77,21 +78,23 @@ class AudioTranscriber:
             logger.error(f"An error occurred: {e}")
             raise
 
-    def _download_audio(self, file_url: str) -> bytes:
-        response = requests.get(file_url)
-        response.raise_for_status()
-        return response.content
+    async def _download_audio(self, file_url: str) -> bytes:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(file_url) as response:
+                response.raise_for_status()
+                return await response.read()
 
-    def _wait_for_transcription(self, job_name: str) -> str:
+    async def _wait_for_transcription(self, job_name: str) -> str:
         while True:
             status = self.aws_services.get_transcription_job_status(job_name)
             if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
                 break
-            time.sleep(5)
+            await asyncio.sleep(5)
 
         if status['TranscriptionJob']['TranscriptionJobStatus'] == 'COMPLETED':
-            result = requests.get(status['TranscriptionJob']['Transcript']['TranscriptFileUri'])
-            return result.json()['results']['transcripts'][0]['transcript']
+            async with aiohttp.ClientSession() as session:
+                async with session.get(status['TranscriptionJob']['Transcript']['TranscriptFileUri']) as result:
+                    return (await result.json())['results']['transcripts'][0]['transcript']
         else:
             raise Exception("Transcription failed")
 
