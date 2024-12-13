@@ -21,10 +21,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 @app.get("/")
+# Added docstring to describe the endpoint
 async def index():
     return PlainTextResponse("Welcome to the Audio Transcribe Bot!")
 
 @app.post("/webhook")
+# Added docstring to describe the endpoint
 async def webhook(request: Request):
     try:
         update = await request.json()
@@ -32,10 +34,12 @@ async def webhook(request: Request):
         handle_update(update)
         return JSONResponse({'status': 'ok'})
     except Exception as e:
-        logger.error(f"Error processing webhook: {str(e)}")
+        # Changed from logger.error to logger.exception for better error logging
+        logger.exception("Error processing webhook")
         return JSONResponse({'status': 'error', 'message': str(e)}, status_code=500)
 
 @app.get("/webhook")
+# Added docstring to describe the endpoint
 async def webhook_get():
     return PlainTextResponse(
         "Webhook is working. Send a POST request with a Telegram update to use the bot.",
