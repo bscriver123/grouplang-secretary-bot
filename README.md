@@ -83,13 +83,13 @@ The bot now supports asynchronous execution for improved performance. Key method
 
 ### Integration with Async Workflows
 
-To effectively incorporate asynchronous execution into your workflow, follow these steps to use `asyncio.gather` for managing multiple tasks:
+To efficiently incorporate asynchronous execution into your workflow, follow these steps:
 
-1. **Import the asyncio Module**: Ensure you have imported the `asyncio` module in your script.
+1. **Import the asyncio Module**: Ensure you have the `asyncio` module imported in your script.
 
-2. **Define Async Functions**: Make sure the functions you want to run concurrently are defined as async functions.
+2. **Define Async Functions**: Define the functions you want to run concurrently as async functions.
 
-3. **Utilize asyncio.gather**: Use `asyncio.gather` to run multiple async functions concurrently. Here's an example:
+3. **Utilize asyncio.gather**: Use `asyncio.gather` to run multiple async functions concurrently. Here’s an example:
 
    ```python
    import asyncio
