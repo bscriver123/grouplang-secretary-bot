@@ -1,5 +1,6 @@
 import boto3
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple, Dict, Union
+import openai
 import requests
 import time
 import uuid
@@ -96,9 +97,11 @@ class AudioTranscriber:
             raise Exception("Transcription failed")
 
 class TextSummarizer:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model_provider: str = 'bedrock'):
+        self.model_provider = model_provider
         self.api_key = api_key
-        self.base_url = 'https://api.marketrouter.ai/v1'
+        self.openai_api_key = api_key
+        self.base_url = 'https://api.marketrouter.ai/v1' if model_provider == 'bedrock' else 'https://api.openai.com/v1'
 
     def summarize_text(self, text: str) -> Tuple[Optional[str], str]:
         try:
@@ -130,32 +133,45 @@ class TextSummarizer:
             raise
 
     def _submit_instance(self, text: str) -> str:
-        instance_params = {
-            "messages": [{"role": "user", "content": f"Summarize this text: {text}"}],
-            "model": "gpt-4o",
-            "background": "Summarize this text",
-            "max_credit_per_instance": 0.01,
-            "instance_timeout": 5,
-            "gen_reward_timeout": 60,
-            "percentage_reward": 1,
-        }
+        if self.model_provider == 'bedrock':
+            instance_params = {
+                "messages": [{"role": "user", "content": f"Summarize this text: {text}"}],
+                "model": "gpt-4o",
+                "background": "Summarize this text",
+                "max_credit_per_instance": 0.01,
+                "instance_timeout": 5,
+                "gen_reward_timeout": 60,
+                "percentage_reward": 1,
+            }
 
-        try:
-            response = requests.post(
-                f'{self.base_url}/instances',
-                headers=self._get_headers(),
-                json=instance_params
-            )
-            response.raise_for_status()
-            conversation_id = response.json().get('id')
-            if not conversation_id:
-                raise ValueError("Response does not contain 'id' field")
-            
-            time.sleep(instance_params['instance_timeout'] + 5)
-            return conversation_id
-        except requests.exceptions.RequestException as e:
-            logger.error(f"An error occurred while submitting the instance: {e}")
-            raise
+            try:
+                response = requests.post(
+                    f'{self.base_url}/instances',
+                    headers=self._get_headers(),
+                    json=instance_params
+                )
+                response.raise_for_status()
+                conversation_id = response.json().get('id')
+                if not conversation_id:
+                    raise ValueError("Response does not contain 'id' field")
+                
+                time.sleep(instance_params['instance_timeout'] + 5)
+                return conversation_id
+            except requests.exceptions.RequestException as e:
+                logger.error(f"An error occurred while submitting the instance: {e}")
+                raise
+        elif self.model_provider == 'openai':
+            try:
+                openai.api_key = self.openai_api_key
+                response = openai.Completion.create(
+                    model="text-davinci-003",
+                    prompt=f"Summarize this text: {text}",
+                    max_tokens=150
+                )
+                return response['id']
+            except Exception as e:
+                logger.error(f"An error occurred while submitting the instance to OpenAI: {e}")
+                raise
 
     def _fetch_messages(self, conversation_id: str) -> Optional[str]:
         try:
