@@ -113,6 +113,45 @@ To integrate these changes into your workflow, you can use `asyncio.gather` to m
 
 By following these steps, you can efficiently manage and execute multiple asynchronous tasks, improving the performance and responsiveness of your bot.
 
+### Update Summary
+
+We’ve made important updates to the `README.md` file to reflect recent enhancements in the codebase. Here’s a summary of the changes:
+
+#### Key Enhancements
+
+- **Asynchronous Execution**: The bot now supports asynchronous execution, which improves performance by allowing concurrent processing of tasks. Key methods like `transcribe_audio` in `services.py` and `send_message` in `utils/telegram_utils.py` have been updated accordingly.
+
+#### Integration Guidelines
+
+To efficiently incorporate these improvements into your workflow:
+
+1. **Import the asyncio Module**: Ensure you have imported the asyncio module in your script.
+  
+2. **Define Async Functions**: Make sure the functions you want to run concurrently are defined as async functions.
+
+3. **Utilize `asyncio.gather`**: This function helps you run multiple async functions at the same time. For example:
+   ```python
+   import asyncio
+   from services import AudioTranscriber
+   from utils.telegram_utils import send_message
+
+   async def main():
+       transcriber = AudioTranscriber(aws_services)
+       tasks = [
+           transcriber.transcribe_audio(file_url1),
+           transcriber.transcribe_audio(file_url2),
+           send_message(chat_id, "Processing your request...")
+       ]
+       results = await asyncio.gather(*tasks)
+       print(results)
+
+   asyncio.run(main())
+   ```
+
+4. **Execute with Event Loop**: Use `asyncio.run()` to run the main async function that gathers all tasks.
+
+By following these steps, you can enhance the performance and responsiveness of your bot when managing multiple tasks simultaneously.
+
 ## Adding or Updating Dependencies
 
 To add a new package:
