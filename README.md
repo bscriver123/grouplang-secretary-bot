@@ -40,7 +40,7 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
    curl -sSL https://install.python-poetry.org | python3 -
    ```
 
-3. Install dependencies using Poetry:
+3. Install dependencies using Poetry (including the newly added `pandas` package):
    ```
    poetry install
    ```
