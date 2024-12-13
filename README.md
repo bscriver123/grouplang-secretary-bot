@@ -115,6 +115,20 @@ By following these steps, you can efficiently manage and execute multiple asynch
 
 ### Update Summary
 
+We have made enhancements to the audio transcription workflow to improve its efficiency and performance. Here are the key changes:
+
+1. **Asynchronous Execution**: The `transcribe_audio` method in `services.py` has been updated to run asynchronous tasks concurrently using `asyncio.gather`. This allows multiple audio processing tasks to execute simultaneously, thereby reducing overall waiting time.
+
+2. **Code Modifications**:
+   - In `services.py`, the `transcribe_audio` method now gathers the `_download_audio` and `_wait_for_transcription` tasks to run them concurrently.
+   - In `utils/telegram_utils.py`, adjustments ensure that the `send_message` function operates correctly within an asynchronous context, allowing it to be called alongside other tasks without blocking.
+
+3. **Integration with Async Workflows**: The changes facilitate the integration of the `transcribe_audio` method into async workflows. You can now use `asyncio.gather` or similar constructs to manage these asynchronous tasks effectively.
+
+Overall, these enhancements will lead to a more responsive and efficient audio transcription process. If you have any questions or need further assistance with the changes, feel free to reach out!
+
+### Update Summary
+
 We’ve made important updates to the `README.md` file to reflect recent enhancements in the codebase. Here’s a summary of the changes:
 
 #### Key Enhancements
