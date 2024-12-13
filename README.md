@@ -81,7 +81,37 @@ GroupLang-secretary-bot is a Telegram bot that transcribes voice messages, summa
 
 The bot now supports asynchronous execution for improved performance. Key methods such as `transcribe_audio` in `services.py` and `send_message` in `utils/telegram_utils.py` have been updated to run asynchronously. This allows for concurrent processing of tasks, reducing overall waiting time and enhancing responsiveness.
 
-To integrate these changes into your workflow, you can use `asyncio.gather` to manage multiple asynchronous tasks effectively. This setup is particularly beneficial when handling multiple audio transcriptions or sending multiple messages simultaneously.
+### Integration with Async Workflows
+
+To integrate these changes into your workflow, you can use `asyncio.gather` to manage multiple asynchronous tasks effectively. This setup is particularly beneficial when handling multiple audio transcriptions or sending multiple messages simultaneously. Here is a step-by-step guide on how to gather tasks:
+
+1. **Import asyncio**: Ensure you have imported the asyncio module in your script.
+
+2. **Define Async Functions**: Make sure the functions you want to run concurrently are defined as async functions.
+
+3. **Use asyncio.gather**: Use `asyncio.gather` to run multiple async functions concurrently. For example:
+
+   ```python
+   import asyncio
+   from services import AudioTranscriber
+   from utils.telegram_utils import send_message
+
+   async def main():
+       transcriber = AudioTranscriber(aws_services)
+       tasks = [
+           transcriber.transcribe_audio(file_url1),
+           transcriber.transcribe_audio(file_url2),
+           send_message(chat_id, "Processing your request...")
+       ]
+       results = await asyncio.gather(*tasks)
+       print(results)
+
+   asyncio.run(main())
+   ```
+
+4. **Run the Event Loop**: Use `asyncio.run()` to execute the main async function that gathers all tasks.
+
+By following these steps, you can efficiently manage and execute multiple asynchronous tasks, improving the performance and responsiveness of your bot.
 
 ## Adding or Updating Dependencies
 
