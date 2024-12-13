@@ -10,6 +10,8 @@ TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 BASE_URL = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}'
 
 async def send_message(chat_id, text, reply_markup=None, reply_to_message_id=None):
+    # Ensure this function is called within an async context
+    # where tasks can be gathered if needed
     try:
         url = f'{BASE_URL}/sendMessage'
         payload = {

@@ -57,12 +57,12 @@ class AudioTranscriber:
         self.aws_services = aws_services
         self.bucket_name = 'audio-transcribe-temp'
 
-    def transcribe_audio(self, file_url: str) -> str:
+    async def transcribe_audio(self, file_url: str) -> str:
         try:
             self.aws_services.create_s3_bucket_if_not_exists(self.bucket_name)
             logger.info(f"S3 Bucket created/confirmed: {self.bucket_name}")
 
-            audio_content = self._download_audio(file_url)
+            audio_content = await self._download_audio(file_url)
             object_key = f'audio_{uuid.uuid4()}.ogg'
             s3_uri = self.aws_services.upload_file_to_s3(audio_content, self.bucket_name, object_key)
             logger.info(f"S3 URI: {s3_uri}")
@@ -71,7 +71,7 @@ class AudioTranscriber:
             self.aws_services.start_transcription_job(job_name, s3_uri)
             logger.info(f"Transcription job started: {job_name}")
 
-            transcription = self._wait_for_transcription(job_name)
+            transcription = await self._wait_for_transcription(job_name)
             self.aws_services.delete_file_from_s3(self.bucket_name, object_key)
 
             return transcription
