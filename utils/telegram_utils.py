@@ -3,6 +3,7 @@ import asyncio
 import os
 import json
 import logging
+import requests
 logger = logging.getLogger(__name__)
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')

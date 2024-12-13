@@ -7,6 +7,7 @@ import uuid
 import logging
 from io import BytesIO
 from botocore.exceptions import ClientError
+import requests
 
 logger = logging.getLogger(__name__)
 
